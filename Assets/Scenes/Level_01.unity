@@ -134,9 +134,9 @@ GameObject:
   - component: {fileID: 463223216}
   - component: {fileID: 463223215}
   - component: {fileID: 463223214}
+  - component: {fileID: 463223218}
   - component: {fileID: 463223213}
   - component: {fileID: 463223217}
-  - component: {fileID: 463223218}
   m_Layer: 0
   m_Name: Assassin
   m_TagString: Untagged
@@ -253,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 463223211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.448, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -308,12 +308,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _runSpeed: 3
-  _jumpSpeed: 3
-  groundCheck: {fileID: 0}
+  _jumpForce: 5
+  groundCheck: {fileID: 1645294805}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  range: {x: 0, y: 0, z: 0}
+    m_Bits: 256
+  range: {x: 0.2, y: 0.05, z: 0}
 --- !u!1 &567826451
 GameObject:
   m_ObjectHideFlags: 0

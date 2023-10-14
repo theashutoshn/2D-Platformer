@@ -25,10 +25,14 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Vector3 range;
 
+    private Animator _anim;
+
     private void Awake()
     {
         // asgined the rigidbody2d to _mybody
         _myBody = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
+
     }
     void Start()
     {
@@ -45,6 +49,9 @@ public class PlayerController : MonoBehaviour
     public void Movement()
     {
         _moveInput = Input.GetAxisRaw("Horizontal") * _runSpeed;
+
+        _anim.SetFloat("Speed", Mathf.Abs(_moveInput));
+
         _myBody.velocity = new Vector2(_moveInput, _myBody.velocity.y);
 
         if (_moveInput > 0 && _faceRight || _moveInput < 0 && !_faceRight)
@@ -52,6 +59,14 @@ public class PlayerController : MonoBehaviour
             Flip();
         } 
         
+        if(_myBody.velocity.y < 0)
+        {
+            _anim.SetBool("Fall", true);
+        }
+        else
+        {
+            _anim.SetBool("Fall", false);
+        }
         //if(Input.GetKeyUp(KeyCode.Space))
         //{
         //    if(_myBody.velocity.y > 0)
@@ -70,7 +85,11 @@ public class PlayerController : MonoBehaviour
             if(bottomHit.gameObject.tag == "Ground" && Input.GetKey(KeyCode.Space))
             {
                 _myBody.velocity = new Vector2(_myBody.velocity.x, _jumpForce);
-                
+                _anim.SetBool("Jump", true);
+            }
+            else
+            {
+                _anim.SetBool("Jump", false);
             }
        
 
