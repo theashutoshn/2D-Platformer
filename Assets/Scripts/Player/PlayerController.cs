@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _myBody;
 
     //bool to flip the player
-    private bool _faceRight;
+    private bool _faceRight = false;
 
     public Transform groundCheck;
     public LayerMask groundLayer;
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveInput = Input.GetAxisRaw("Horizontal") * _runSpeed;
 
-        _anim.SetFloat("Speed", Mathf.Abs(_moveInput));
+        _anim.SetFloat("Speed", Mathf.Abs(_moveInput)); // animation of speed running.
 
         _myBody.velocity = new Vector2(_moveInput, _myBody.velocity.y);
 
@@ -106,8 +106,9 @@ public class PlayerController : MonoBehaviour
 
     public void Flip()    
     {
+        //false = true
         _faceRight = !_faceRight;
-
+        
         Vector3 transformScale = transform.localScale;
         transformScale.x *= -1;
         transform.localScale = transformScale;

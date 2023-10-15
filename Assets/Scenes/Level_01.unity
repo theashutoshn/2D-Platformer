@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 463223218}
   - component: {fileID: 463223213}
   - component: {fileID: 463223217}
+  - component: {fileID: 463223219}
   m_Layer: 0
   m_Name: Assassin
   m_TagString: Untagged
@@ -314,6 +315,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   range: {x: 0.2, y: 0.05, z: 0}
+--- !u!114 &463223219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463223211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95f6a3c6725bf44f824d442ee5fd3ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &567826451
 GameObject:
   m_ObjectHideFlags: 0
