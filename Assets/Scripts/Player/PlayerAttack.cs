@@ -13,8 +13,9 @@ public class PlayerAttack : MonoBehaviour
     private int _combo;
 
 
-    //public Transform attackPos;
-    //public LayerMask enemyLayer;
+    public Transform attackPos;
+    public float attackRange;
+    public LayerMask enemyLayer;
 
     void Awake()
     {
@@ -38,7 +39,13 @@ public class PlayerAttack : MonoBehaviour
                 _activeTimeToReset = true;
                 _currentComboTimer = _defaultComboTimer;
 
-                //Attack
+                Collider2D[] attackEnemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemyLayer);
+                Debug.Log("Enemies in range: " + attackEnemies.Length);
+                //for (int i = 0; i< attackEnemies.Length; i++)
+                //{
+                //    Debug.Log("Hit");
+                //}
+
             }
             else
             {
@@ -69,6 +76,12 @@ public class PlayerAttack : MonoBehaviour
                 _currentComboTimer = _defaultComboTimer;
             }
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
 
 }
