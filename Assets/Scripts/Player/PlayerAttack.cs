@@ -17,6 +17,8 @@ public class PlayerAttack : MonoBehaviour
     public float attackRange;
     public LayerMask enemyLayer;
 
+    private int _damage = 30;
+
     void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -40,11 +42,14 @@ public class PlayerAttack : MonoBehaviour
                 _currentComboTimer = _defaultComboTimer;
 
                 Collider2D[] attackEnemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemyLayer);
-                Debug.Log("Enemies in range: " + attackEnemies.Length);
-                //for (int i = 0; i< attackEnemies.Length; i++)
-                //{
-                //    Debug.Log("Hit");
-                //}
+                //Debug.Log("Enemies in range: " + attackEnemies.Length);
+                for (int i = 0; i< attackEnemies.Length; i++)
+                {
+                    if(attackEnemies[i].GetComponent<EnemyHealth>().health > 0)
+                    {
+                        attackEnemies[i].GetComponent<EnemyHealth>().TakeDamage(_damage);
+                    }
+                }
 
             }
             else

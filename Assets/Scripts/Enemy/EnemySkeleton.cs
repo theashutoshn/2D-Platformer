@@ -15,9 +15,11 @@ public class EnemySkeleton : MonoBehaviour
     private bool _enemyFaceRight = false;
     private Transform _playerPos;
 
+    private Animator _anim;
 
     private void Awake()
     {
+        _anim = GetComponent<Animator>();
         _playerPos = GameObject.Find("Assassin").transform;
         _enemyBody = GetComponent<Rigidbody2D>();
     }
@@ -31,6 +33,8 @@ public class EnemySkeleton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //patrol ON/OFF when the player is in the range of the enemy.
+
         if(Vector3.Distance(transform.position, _playerPos.position) <= 1.5f)
         {
             _patrol = false;
@@ -43,6 +47,15 @@ public class EnemySkeleton : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_anim.GetBool("Death"))
+        {
+            _enemyBody.velocity = Vector2.zero;
+            GetComponent<Collider2D>().enabled = false;
+            _enemyBody.isKinematic = true;
+            return;
+        }
+
+        // enemy flipping the direction
         if (direction > 0)
         {
             transform.localScale = new Vector2(1.7f, -transform.position.y);
@@ -52,6 +65,8 @@ public class EnemySkeleton : MonoBehaviour
             transform.localScale = new Vector2(-1.7f, -transform.position.y);
         }
 
+
+        // patrol dirction and movement of the skeleton
         if (_patrol)
         {
             switch (direction)
