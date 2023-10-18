@@ -13,7 +13,7 @@ public class EnemySkeleton : MonoBehaviour
     private float _minX, _maxX;
     
 
-    private bool _patrol, _detect;
+    private bool _patrol;
     private Transform _playerPos;
 
     private Animator _anim;
@@ -24,7 +24,7 @@ public class EnemySkeleton : MonoBehaviour
     public float attackRange;
     public LayerMask playerLayer;
     public int damage;
-
+    private bool _detect = false;
 
 
     private void Awake()
@@ -53,6 +53,7 @@ public class EnemySkeleton : MonoBehaviour
         {
             _patrol = true;
         }
+
     }
 
     private void FixedUpdate()
@@ -62,6 +63,7 @@ public class EnemySkeleton : MonoBehaviour
             _enemyBody.velocity = Vector2.zero;
             GetComponent<Collider2D>().enabled = false;
             _enemyBody.isKinematic = true;
+            _anim.SetBool("Attack", false);
             return;
         }
 
@@ -69,6 +71,7 @@ public class EnemySkeleton : MonoBehaviour
         if (direction > 0)
         {
             transform.localScale = new Vector2(1.7f, -transform.position.y);
+            _anim.SetBool("Attack", false);
         }
         else if (direction < 0)
         {
@@ -108,8 +111,25 @@ public class EnemySkeleton : MonoBehaviour
                     }
                     break;
             }
-        }   
+        }
+        else
+        {
+            if (Vector2.Distance(_playerPos.position, transform.position) <= 1.5f )
+            {
+                if (!_detect)
+                {
+                    _detect = true;
+                    _anim.SetTrigger("Detect");
+                    Debug.Log("Detect triggered");
+                }
+
+                if (_anim.GetCurrentAnimatorStateInfo(0).IsName("SkeletonDetect"))
+                {
+                    return;
+                }
+            }
     }
+}
 
    
 }
