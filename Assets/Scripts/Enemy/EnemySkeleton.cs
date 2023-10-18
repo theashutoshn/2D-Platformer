@@ -6,16 +6,26 @@ public class EnemySkeleton : MonoBehaviour
 {
     private Rigidbody2D _enemyBody;
 
-    private float _moveSpeed = 0.7f;
-    private float _minX, _maxX;
+    [Header ("Movement")]
     public float distance;
     public int direction;
+    private float _moveSpeed = 0.7f;
+    private float _minX, _maxX;
+    
 
-    private bool _patrol;
-    private bool _enemyFaceRight = false;
+    private bool _patrol, _detect;
     private Transform _playerPos;
 
     private Animator _anim;
+
+
+    [Header("Attack")]
+    public Transform attackPos;
+    public float attackRange;
+    public LayerMask playerLayer;
+    public int damage;
+
+
 
     private void Awake()
     {
@@ -69,6 +79,7 @@ public class EnemySkeleton : MonoBehaviour
         // patrol dirction and movement of the skeleton
         if (_patrol)
         {
+            
             switch (direction)
             {
                 case -1:
