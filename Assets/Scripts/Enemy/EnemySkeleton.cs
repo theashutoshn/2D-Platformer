@@ -114,22 +114,39 @@ public class EnemySkeleton : MonoBehaviour
         }
         else
         {
-            if (Vector2.Distance(_playerPos.position, transform.position) <= 1.5f )
+            if (Vector2.Distance(_playerPos.position, transform.position) >= 0.4f )
             {
                 if (!_detect)
                 {
                     _detect = true;
                     _anim.SetTrigger("Detect");
-                    Debug.Log("Detect triggered");
+                    //Debug.Log("Detect triggered");
                 }
 
                 if (_anim.GetCurrentAnimatorStateInfo(0).IsName("SkeletonDetect"))
                 {
-                    return;
+                    
+                    Vector3 playerDir = (_playerPos.position - transform.position).normalized;
+
+                    if(playerDir.x > 0)
+                    {
+                        _enemyBody.velocity = new Vector2(_moveSpeed + 0.4f, _enemyBody.velocity.y);
+                    }
+                    else
+                    {
+                        _enemyBody.velocity = new Vector2((-_moveSpeed + 0.4f), _enemyBody.velocity.y);
+                    }
+                    
                 }
             }
-    }
-}
+            else if (Vector2.Distance(_playerPos.position, transform.position) <= 0.4f)
+            {
+                _enemyBody.velocity = new Vector2(0, _enemyBody.velocity.y);
+                _anim.SetBool("Attack", true);
+                Debug.Log("Attack Start");
+            }
+        }
+    }   
 
    
 }
