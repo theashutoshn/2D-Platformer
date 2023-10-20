@@ -6,14 +6,14 @@ public class EnemySkeleton : MonoBehaviour
 {
     private Rigidbody2D _enemyBody;
 
-    [Header ("Movement")]
+    [Header("Movement")]
     public float distance;
     public int direction;
     private float _moveSpeed = 0.7f;
     private float _minX, _maxX;
-    
 
-    private bool _patrol;
+
+    private bool _patrol = true;
     private Transform _playerPos;
 
     private Animator _anim;
@@ -25,6 +25,8 @@ public class EnemySkeleton : MonoBehaviour
     public LayerMask playerLayer;
     public int damage;
     private bool _detect = false;
+
+    bool facingPlayer;
 
 
     private void Awake()
@@ -43,9 +45,8 @@ public class EnemySkeleton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //patrol ON/OFF when the player is in the range of the enemy.
 
-        if(Vector3.Distance(transform.position, _playerPos.position) <= 1.5f)
+        if (Vector3.Distance(transform.position, _playerPos.position) <= 1.5f)
         {
             _patrol = false;
         }
@@ -82,7 +83,7 @@ public class EnemySkeleton : MonoBehaviour
         // patrol dirction and movement of the skeleton
         if (_patrol)
         {
-            
+
             switch (direction)
             {
                 case -1:
@@ -114,39 +115,49 @@ public class EnemySkeleton : MonoBehaviour
         }
         else
         {
-            if (Vector2.Distance(_playerPos.position, transform.position) >= 0.4f )
+            if (Vector2.Distance(_playerPos.position, transform.position) >= 0.4f)
             {
                 if (!_detect)
                 {
                     _detect = true;
                     _anim.SetTrigger("Detect");
-                    //Debug.Log("Detect triggered");
+
+                    Debug.Log(_anim.GetCurrentAnimatorStateInfo(0).ToString());
+
+                        Vector3 playerDir = (_playerPos.position - transform.position).normalized;
+
+                        if (playerDir.x > 0)
+                        {
+                            direction = -1;
+                            //transform.localScale = new Vector2(1.7f, -transform.position.y);
+                            // _enemyBody.velocity = new Vector2(_moveSpeed + 0.4f, _enemyBody.velocity.y);
+                        }
+                        else
+                        {
+                            direction = 1;
+                            // transform.localScale = new Vector2(-1.7f, -transform.position.y);
+                            //_enemyBody.velocity = new Vector2((direction * _moveSpeed + 0.4f), _enemyBody.velocity.y);
+                        }
+                        _enemyBody.velocity = new Vector2((direction * _moveSpeed + 0.4f), _enemyBody.velocity.y);
+
+                    if (_anim.GetCurrentAnimatorStateInfo(0).IsName("Skeleton_React_anim"))
+                    {
+                        
+
+                    }
                 }
 
-                if (_anim.GetCurrentAnimatorStateInfo(0).IsName("SkeletonDetect"))
-                {
-                    
-                    Vector3 playerDir = (_playerPos.position - transform.position).normalized;
-
-                    if(playerDir.x > 0)
-                    {
-                        _enemyBody.velocity = new Vector2(_moveSpeed + 0.4f, _enemyBody.velocity.y);
-                    }
-                    else
-                    {
-                        _enemyBody.velocity = new Vector2((-_moveSpeed + 0.4f), _enemyBody.velocity.y);
-                    }
-                    
-                }
             }
+
             else if (Vector2.Distance(_playerPos.position, transform.position) <= 0.4f)
             {
                 _enemyBody.velocity = new Vector2(0, _enemyBody.velocity.y);
+                //_anim.SetTrigger("");
                 _anim.SetBool("Attack", true);
                 Debug.Log("Attack Start");
             }
         }
-    }   
+    }
 
-   
+
 }
