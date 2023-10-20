@@ -254,7 +254,7 @@ Transform:
   m_GameObject: {fileID: 463223211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.02, y: -1.641, z: 0}
+  m_LocalPosition: {x: -3.58, y: -1.641, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -659,12 +659,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1030007427}
   - component: {fileID: 1030007426}
-  - component: {fileID: 1030007428}
+  - component: {fileID: 1030007431}
   - component: {fileID: 1030007425}
   - component: {fileID: 1030007424}
   - component: {fileID: 1030007429}
   - component: {fileID: 1030007430}
-  - component: {fileID: 1030007431}
+  - component: {fileID: 1030007428}
   m_Layer: 12
   m_Name: Skeleton
   m_TagString: Enemy
@@ -872,16 +872,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030007423}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3943f132ca3f1e54d823c9a950cefe4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a34f9e05fe6f84469ef64de222b03b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolDistance: 0
-  moveSpeed: 0.7
-  detectionRange: 1.5
-  attackRange: 0.4
-  damage: 0
 --- !u!1 &1187843144
 GameObject:
   m_ObjectHideFlags: 0

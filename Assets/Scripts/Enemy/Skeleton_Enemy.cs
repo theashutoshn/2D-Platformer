@@ -11,7 +11,7 @@ public class Skeleton_Enemy : MonoBehaviour
     private int _patrolDirection = 1;
     private float _maxX;
     private float _minX;
-    private bool _patrol = false;
+    private bool _patrol;
     private Transform _player;
 
 
@@ -30,12 +30,18 @@ public class Skeleton_Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!_patrol)
+        float enemyPlayerDistance = Vector2.Distance(_player.position, transform.position);
+        
+        if(enemyPlayerDistance <= 1.5)
+        {
+            _patrol = false;
+        }
+        else
         {
             Patrol();
         }
 
-        PlayerDetect();
+        
     }
 
     public void Patrol()
@@ -64,11 +70,5 @@ public class Skeleton_Enemy : MonoBehaviour
         transform.localScale = enemyScale;
     }
 
-    public void PlayerDetect()
-    {
-        if (Vector2.Distance (_player.position, transform.position) <= 1)
-        {
-            _patrol = false;
-        }
-    }
+   
 }
