@@ -14,11 +14,15 @@ public class Skeleton_Enemy : MonoBehaviour
     private bool _patrol;
     private Transform _player;
 
+    private Animator _anim;
 
+    
     private void Awake()
     {
         _enemyBody = GetComponent<Rigidbody2D>();
         _player = GameObject.Find("Assassin").transform;
+        _anim = GetComponent<Animator>();
+        
     }
 
     void Start()
@@ -35,12 +39,26 @@ public class Skeleton_Enemy : MonoBehaviour
         if(enemyPlayerDistance <= 1.5)
         {
             _patrol = false;
+            _anim.SetTrigger("Detect");
+
+            float runSpeed = _moveSpeed * 2;
+            Vector2 moveDirection = (_player.position - transform.position).normalized * runSpeed;
+            if(moveDirection.x >0)
+            {
+                FaceDirection(Vector2.right);
+            }
+            else if (moveDirection.x < 0)
+            {
+                FaceDirection(Vector2.left);
+            }
+            _enemyBody.velocity = new Vector2(moveDirection.x, transform.position.y);  
         }
         else
         {
             Patrol();
         }
 
+        
         
     }
 
@@ -70,5 +88,16 @@ public class Skeleton_Enemy : MonoBehaviour
         transform.localScale = enemyScale;
     }
 
+    public void FaceDirection(Vector2 moveDirection)
+    {
+        if (moveDirection == Vector2.right)
+        {
+            transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1.7f, 1.7f, 1.7f);
+        }
+    }
    
 }
