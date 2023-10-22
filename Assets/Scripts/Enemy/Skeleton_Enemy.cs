@@ -11,12 +11,19 @@ public class Skeleton_Enemy : MonoBehaviour
     private int _patrolDirection = 1;
     private float _maxX;
     private float _minX;
-    private bool _patrol;
+    private bool _patrol = false;
     private Transform _player;
 
     private Animator _anim;
 
-    
+    public Transform attackPos;
+    public float attackRange;
+    public LayerMask playerLayer;
+
+    public int PlayerDamage;
+    private int _pdamage = 30;
+
+
     private void Awake()
     {
         _enemyBody = GetComponent<Rigidbody2D>();
@@ -36,7 +43,7 @@ public class Skeleton_Enemy : MonoBehaviour
     {
         float enemyPlayerDistance = Vector2.Distance(_player.position, transform.position);
         
-        if (enemyPlayerDistance <= 0.5f)
+        if (enemyPlayerDistance <= 0.4f)
         {
             AttackPlayer();
         }     
@@ -115,6 +122,22 @@ public class Skeleton_Enemy : MonoBehaviour
 
         // Start attack animation
         _anim.SetTrigger("Attack");
+
+        Collider2D attackPlayer = Physics2D.OverlapCircle(attackPos.position, attackRange, playerLayer);
+        if (attackPlayer != null)
+        {
+            if (attackPlayer.tag == "Player")
+            {
+                attackPlayer.gameObject.GetComponent<PlayerHealth>().PlayerDamage(_pdamage);
+            }
+        }
+
     }
-   
+
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
+
 }
