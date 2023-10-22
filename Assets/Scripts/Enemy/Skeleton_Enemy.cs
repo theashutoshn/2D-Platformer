@@ -24,7 +24,7 @@ public class Skeleton_Enemy : MonoBehaviour
         _anim = GetComponent<Animator>();
         
     }
-
+    
     void Start()
     {
         _maxX = transform.position.x + (_patrolDistance / 2);
@@ -36,7 +36,11 @@ public class Skeleton_Enemy : MonoBehaviour
     {
         float enemyPlayerDistance = Vector2.Distance(_player.position, transform.position);
         
-        if(enemyPlayerDistance <= 1.5)
+        if (enemyPlayerDistance <= 0.5f)
+        {
+            AttackPlayer();
+        }     
+        else if(enemyPlayerDistance <= 1.5)
         {
             _patrol = false;
             _anim.SetTrigger("Detect");
@@ -51,14 +55,15 @@ public class Skeleton_Enemy : MonoBehaviour
             {
                 FaceDirection(Vector2.left);
             }
-            _enemyBody.velocity = new Vector2(moveDirection.x, transform.position.y);  
+
+            // move the enemy towards player
+            _enemyBody.velocity = new Vector2(moveDirection.x, transform.position.y);
+
         }
         else
         {
             Patrol();
         }
-
-        
         
     }
 
@@ -79,6 +84,7 @@ public class Skeleton_Enemy : MonoBehaviour
 
     }
 
+    //FlipDirection while patrolling
     public void FlipDirection()
     {
         _patrolDirection *= -1;
@@ -87,7 +93,9 @@ public class Skeleton_Enemy : MonoBehaviour
         enemyScale.x *= -1;
         transform.localScale = enemyScale;
     }
+    
 
+    // FaceDirection once the player is detected
     public void FaceDirection(Vector2 moveDirection)
     {
         if (moveDirection == Vector2.right)
@@ -98,6 +106,15 @@ public class Skeleton_Enemy : MonoBehaviour
         {
             transform.localScale = new Vector3(-1.7f, 1.7f, 1.7f);
         }
+    }
+
+    public void AttackPlayer()
+    {
+        // Stop enemy movement
+        _enemyBody.velocity = Vector2.zero;
+
+        // Start attack animation
+        _anim.SetTrigger("Attack");
     }
    
 }
