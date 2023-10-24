@@ -20,7 +20,7 @@ public class Skeleton_Enemy : MonoBehaviour
     public float attackRange;
     public LayerMask playerLayer;
 
-    public int PlayerDamage;
+    
     private int _pdamage = 30;
 
 
@@ -123,13 +123,17 @@ public class Skeleton_Enemy : MonoBehaviour
         // Start attack animation
         _anim.SetTrigger("Attack");
 
-        Collider2D attackPlayer = Physics2D.OverlapCircle(attackPos.position, attackRange, playerLayer);
+        Collider2D attackPlayer = Physics2D.OverlapCircleAll(attackPos.position, attackRange, playerLayer);
         if (attackPlayer != null)
         {
             if (attackPlayer.tag == "Player")
             {
                 attackPlayer.gameObject.GetComponent<PlayerHealth>().PlayerDamage(_pdamage);
             }
+        }
+        else
+        {
+            Debug.LogError("No Player");
         }
 
     }

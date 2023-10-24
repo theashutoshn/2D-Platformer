@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int playerHealth = 200;
+    public int pHealth = 200;
 
     private Animator _anim;
     void Awake()
@@ -15,17 +15,20 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (pHealth < 1)
+        {
+            Debug.Log("Dead");
+        }
     }
 
     public void PlayerDamage(int damage)
     {
-        _anim.SetTrigger("Player Hit");
-        playerHealth -= damage;
-        if(playerHealth < 0)
-        {
-            _anim.SetBool("Player Death", true);
-        }
+        //_anim.SetTrigger("Player Hit");
+        pHealth -= damage;
+        //if(playerHealth < 0)
+        //{
+        //    _anim.SetBool("Player Death", true);
+        //}
 
     }
 }
