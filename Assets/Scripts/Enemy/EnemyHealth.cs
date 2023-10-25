@@ -26,11 +26,12 @@ public class EnemyHealth : MonoBehaviour
         if(health < 0)
         {
             _anim.SetBool("Death", true);
-            //Destroy(this.gameObject, 1.5f);
+            
             
         }
     }
 
+    // This method is added in the animation event
     public void EnemyDestory()
     {
         Destroy(gameObject);

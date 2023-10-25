@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Skeleton_Enemy : MonoBehaviour
@@ -45,7 +43,8 @@ public class Skeleton_Enemy : MonoBehaviour
         
         if (enemyPlayerDistance <= 0.4f)
         {
-            AttackPlayer();
+            _enemyBody.velocity = Vector3.zero;
+            _anim.SetTrigger("Attack");
         }     
         else if(enemyPlayerDistance <= 1.5)
         {
@@ -117,13 +116,9 @@ public class Skeleton_Enemy : MonoBehaviour
 
     public void AttackPlayer()
     {
-        // Stop enemy movement
-        _enemyBody.velocity = Vector2.zero;
+            
 
-        // Start attack animation
-        _anim.SetTrigger("Attack");
-
-        Collider2D attackPlayer = Physics2D.OverlapCircleAll(attackPos.position, attackRange, playerLayer);
+        Collider2D attackPlayer = Physics2D.OverlapCircle(attackPos.position, attackRange, playerLayer);
         if (attackPlayer != null)
         {
             if (attackPlayer.tag == "Player")

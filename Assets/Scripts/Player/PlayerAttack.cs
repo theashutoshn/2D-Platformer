@@ -19,6 +19,14 @@ public class PlayerAttack : MonoBehaviour
 
     private int _damage = 30;
 
+    //Bow Attack Variables
+    private int _arrowCount;
+    public bool canShoot = false;
+
+    public GameObject arrow;
+    public Transform arrowpos;
+
+
     void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -29,8 +37,30 @@ public class PlayerAttack : MonoBehaviour
     {
         ResetComboState();
         SwordAttack();
+        _arrowCount = 10;
+
+        BowAttack();
     }
 
+    public void BowAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && canShoot)
+        {
+            Debug.Log("K is pressed");
+            if(_arrowCount > 0)
+            {
+                _anim.SetTrigger("Shoot");
+                canShoot = false;
+                _arrowCount--;
+                ArrowSpawn();
+            }
+        }
+    }
+
+    public void ArrowSpawn()
+    {
+        Instantiate(arrow, arrowpos.position, Quaternion.identity);
+    }
     void SwordAttack()
     {
         if(Input.GetKeyDown(KeyCode.J))
@@ -67,6 +97,7 @@ public class PlayerAttack : MonoBehaviour
     void ResetCombo()
     {
         _combo = 0;
+        canShoot = true;
     }
 
     void ResetComboState()

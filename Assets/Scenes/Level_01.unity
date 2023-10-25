@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &211951373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 211951374}
+  m_Layer: 10
+  m_Name: ArrowPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &211951374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211951373}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0177, y: -0.0286, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 463223216}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &463223211
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +292,7 @@ Transform:
   m_Children:
   - {fileID: 1645294805}
   - {fileID: 1187843145}
+  - {fileID: 211951374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &463223217
@@ -334,6 +366,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 4096
+  canShoot: 0
+  arrow: {fileID: 8991340613797587512, guid: df91f4c38dbfe5c4180e36f6601ed266, type: 3}
+  arrowpos: {fileID: 211951374}
 --- !u!114 &463223220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0f797ec7ab7034087335f22bd6848b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 200
+  pHealth: 200
 --- !u!1 &567826451
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +713,6 @@ GameObject:
   - component: {fileID: 1030007424}
   - component: {fileID: 1030007429}
   - component: {fileID: 1030007430}
-  - component: {fileID: 1030007428}
   m_Layer: 12
   m_Name: Skeleton
   m_TagString: Enemy
@@ -722,7 +756,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2375, y: 0.4625}
+    oldSize: {x: 0.22, y: 0.32}
     newSize: {x: 0.22, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -826,34 +860,6 @@ Transform:
   - {fileID: 1785941319}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1030007428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030007423}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edcd2963067af95478fd92f643e5b803, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyBody: {fileID: 0}
-  distance: 2
-  direction: 1
-  _moveSpeed: 0.7
-  _minX: 0
-  _maxX: 0
-  _patrol: 1
-  _playerPos: {fileID: 0}
-  _anim: {fileID: 0}
-  attackPos: {fileID: 0}
-  attackRange: 0
-  playerLayer:
-    m_Bits: 0
-  damage: 0
-  _detect: 0
-  facingPlayer: 0
 --- !u!95 &1030007429
 Animator:
   serializedVersion: 5
@@ -905,7 +911,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
-  PlayerDamage: 20
 --- !u!1 &1187843144
 GameObject:
   m_ObjectHideFlags: 0

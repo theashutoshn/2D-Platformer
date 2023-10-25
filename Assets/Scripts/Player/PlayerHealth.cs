@@ -18,17 +18,21 @@ public class PlayerHealth : MonoBehaviour
         if (pHealth < 1)
         {
             Debug.Log("Dead");
+            
         }
     }
 
     public void PlayerDamage(int damage)
     {
-        //_anim.SetTrigger("Player Hit");
+        _anim.SetTrigger("Player Hit");
         pHealth -= damage;
-        //if(playerHealth < 0)
+        //if(pHealth < 1)
         //{
         //    _anim.SetBool("Player Death", true);
+            
         //}
 
     }
+
+   
 }
